@@ -11,7 +11,7 @@ In many machine learning applications, each record represents a set of items. A 
 
 ![set_problems](images/set_problems.PNG)
 
-## Code
+## Implementation
 
 The current implementation is based on Sklean's `BaseEstimator` class and is fully compatible with Sklearn.
 It contains two main components: `SetDataset` object, that receives `records` as attribute. `records` is a list of numpy arrays, each array with shape `(n_i, d)` represents a single record (set). `d` is the dimention of each item in the record and `n_i` is the number of items in the i's record and may differ between records. The second componnent is `SetTree` model inherited from Sklean's `BaseEstimator` and has simillar attributes. 
