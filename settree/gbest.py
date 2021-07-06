@@ -115,7 +115,7 @@ class BaseGradientBoostedSetTree(BaseEnsemble, metaclass=ABCMeta):
 
     @abstractmethod
     def __init__(self, *, loss, learning_rate, n_estimators, criterion, splitter='sklearn',
-                 operations=OPERATIONS, use_attention_set=True, use_attention_set_comp=True, attention_set_limit=-1, save_path=None,
+                 operations=OPERATIONS, use_attention_set=True, use_attention_set_comp=True, attention_set_limit=1, save_path=None,
                  min_samples_split, min_samples_leaf, min_weight_fraction_leaf,
                  max_depth, min_impurity_decrease, min_impurity_split,
                  init, subsample, max_features, ccp_alpha,
@@ -717,7 +717,7 @@ class GradientBoostedSetTreeClassifier(ClassifierMixin, BaseGradientBoostedSetTr
     def __init__(self, *, loss='deviance', learning_rate=0.1, n_estimators=100,
                  subsample=1.0, criterion='mse',
                  splitter='sklearn', operations=OPERATIONS, use_attention_set=True, use_attention_set_comp=True,
-                 attention_set_limit=-1, save_path=None,
+                 attention_set_limit=1, save_path=None,
                  min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.,
                  max_depth=3, min_impurity_decrease=0.,
                  min_impurity_split=None, init=None,
@@ -916,7 +916,7 @@ class GradientBoostedSetTreeRegressor(RegressorMixin, BaseGradientBoostedSetTree
     def __init__(self, *, loss='ls', learning_rate=0.1, n_estimators=100,
                  subsample=1.0, criterion='mse', splitter='sklearn',
                  operations=OPERATIONS, use_attention_set=True, use_attention_set_comp=True,
-                 attention_set_limit=-1, save_path=None,
+                 attention_set_limit=1, save_path=None,
                  min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.,
                  max_depth=3, min_impurity_decrease=0.,
                  min_impurity_split=None, init=None, random_state=None,
