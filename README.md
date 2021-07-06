@@ -34,7 +34,7 @@ When configuring Set-Tree one should also configure:
 - `attention_set_limit` :  the number of ancestors levels to derive attention-sets from
 - `use_attention_set_comp` : binary flag for activating the attention-sets compatibility option
 
-A simplified code snippet:
+A simplified code snippet for training Set-Tree:
 ```
 import settree
 import numpy as np
@@ -50,6 +50,25 @@ set_tree_model = settree.SetTree(classifier=True,
                                  max_depth=10)
 set_tree_model.fit(set_data, labels)
 ```
+
+A simplified code snippet for training GBeST:
+```
+import settree
+import numpy as np
+
+set_data = settree.SetDataset(records=[np.random.randn(2,5) for _ in range(10)])
+labels = np.random.randn(10) >= 0.5
+gbest_model = settree.GradientBoostedSetTreeClassifier(learning_rate=0.1, 
+                                                       n_estimators=10,
+                                                       criterion='mse',
+                                                       operations=settree.OPERATIONS,
+                                                       use_attention_set=True,
+                                                       use_attention_set_comp=True,
+                                                       attention_set_limit=5,
+                                                       max_depth=10)
+gbest_model.fit(set_data, labels)
+```
+
 For further details and examples see: `example.ipynb`.
 
 ## Citation
