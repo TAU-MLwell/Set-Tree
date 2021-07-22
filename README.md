@@ -73,6 +73,20 @@ For further details and examples see: `example.ipynb`.
 
 ## Citation
 If you use Set-Tree in your work, please cite:
+```
+@InProceedings{pmlr-v139-hirsch21a,
+  title = 	 {Trees with Attention for Set Prediction Tasks},
+  author =       {Hirsch, Roy and Gilad-Bachrach, Ran},
+  booktitle = 	 {Proceedings of the 38th International Conference on Machine Learning},
+  pages = 	 {4250--4261},
+  year = 	 {2021},
+  editor = 	 {Meila, Marina and Zhang, Tong},
+  volume = 	 {139},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {18--24 Jul},
+  publisher =    {PMLR}
+}
+```
 
 ## License
 Set-Tree is MIT licensed, as found in the [LICENSE](https://github.com/TAU-MLwell/Set-Tree/blob/main/LICENSE) file.
