@@ -1,9 +1,9 @@
 import random
 import numpy as np
-from settree.operations import *
+import settree.operations as ops
 
-OPERATIONS = [Min(), Max(), Sum(), Mean(), SecondMomentMean(), HarmonicMean(), GeometricMean()]
-OPERATIONS_BASIC = [Min(), Max(), Sum(), Mean()]
+OPERATIONS = [ops.Min(), ops.Max(), ops.Sum(), ops.Mean(), ops.SecondMomentMean(), ops.HarmonicMean(), ops.GeometricMean()]
+OPERATIONS_BASIC = [ops.Min(), ops.Max(), ops.Sum(), ops.Mean()]
 DTYPE = np.float32
 
 

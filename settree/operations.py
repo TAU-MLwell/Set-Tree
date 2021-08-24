@@ -17,7 +17,7 @@ class Operation(ABC):
     def __name__(self):
         return self.name
 
-    def get_as(self, x ,threshold):
+    def get_as(self, x, threshold):
         raise NotImplemented
 
     def __call__(self, x):
