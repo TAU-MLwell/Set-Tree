@@ -77,7 +77,7 @@ if __name__ == '__main__':
                             nn.Linear(64, params['output_dim']))
         # model = InvarianceModel(theta, rho, op=torch.mean)
 
-        model = DDSInvarianceModel([params['input_dim'], 32, 64, 128],
+        model = DSSInvarianceModel([params['input_dim'], 32, 64, 128],
                                    drop_rate=params['dropout'],
                                    rho=rho,
                                    op=torch.sum)

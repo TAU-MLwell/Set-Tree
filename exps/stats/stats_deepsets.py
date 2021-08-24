@@ -68,7 +68,7 @@ if __name__ == '__main__':
                                                           nn.Linear(25, 2)),
                                         op=torch.mean)
 
-                model = DDSInvarianceModel([1, 25, 50],
+                model = DSSInvarianceModel([1, 25, 50],
                                            drop_rate=0.2,
                                            rho=nn.Sequential(nn.Linear(50, 25),
                                                           nn.ReLU(inplace=True),

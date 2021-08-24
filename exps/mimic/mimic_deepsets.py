@@ -34,7 +34,7 @@ if __name__ == '__main__':
         logging.info('Seed {}'.format(seed))
         logging.info(pformat(params))
 
-        dataset = get_mimic_data_fold(params['type', params['num']])
+        dataset = get_mimic_data_fold(params['type'], params['num'])
         train_data = dataset['ds_train'].records
         test_data = dataset['ds_test'].records
         y_train = dataset['y_train']

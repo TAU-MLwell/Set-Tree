@@ -84,6 +84,7 @@ class BaseTrainer():
         self.best_epoch = None
         self.best_model = None
 
+        epoch = 0
         for epoch in range(self.n_epochs):
             train_loss, train_met = self.train_single_epoch(model, train_loader)
             val_loss, val_met = self.eval(model, eval_loader)
@@ -126,7 +127,6 @@ class BaseTrainer():
 
     def eval(self, model, eval_loader):
         raise NotImplemented
-
 
     def test(self, model, test_loader, metric=None):
         raise NotImplemented

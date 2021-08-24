@@ -40,7 +40,7 @@ if __name__ == '__main__':
                                      num_workers=params['num_workers'], shuffle=True, transform_x=lambda x: x)
         logging.info('Finish preprocessing')
 
-        # model = DDSInvarianceModel([params['dim'], 64, 128, 128],
+        # model = DSSInvarianceModel([params['dim'], 64, 128, 128],
         #                            drop_rate=0.2,
         #                            rho=nn.Sequential(nn.Linear(128, 2)),
         #                            op=protected_max)
@@ -60,7 +60,7 @@ if __name__ == '__main__':
         criteria = nn.CrossEntropyLoss()
         optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 
-        trainer = RegularTrainer(n_epochs=params['num_workers'],
+        trainer = RegularTrainer(n_epochs=params['n_epochs'],
                                  criteria=criteria,
                                  optimizer=optimizer,
                                  eval_metric=eval.AverageAcc,

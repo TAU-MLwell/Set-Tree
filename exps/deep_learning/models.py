@@ -25,45 +25,59 @@ class ModelWarper(nn.Module):
         return out
 
 
-class DDSLinearLayer(nn.Module):
+class DSSLinearLayer(nn.Module):
     def __init__(self, input_dim, output_dim, op=torch.sum):
-        super(DDSLinearLayer, self).__init__()
+        super(DSSLinearLayer, self).__init__()
         self.fc = nn.Linear(input_dim, output_dim)
+        self.bn = nn.BatchNorm1d(output_dim)
         self.shared_fc = nn.Linear(input_dim, output_dim)
+        self.shared_bn = nn.BatchNorm1d(output_dim)
         self.op = op
 
     def forward(self, x):
-        bs, n, d = x.shape
         x_i = self.fc(x)
+        bs, n, d = x_i.shape
+        x_i = self.bn(x_i.view(bs * n, d)).view(bs, n, d)
+
         x_s = self.shared_fc(self.op(x, 1))
+        x_s = self.shared_bn(x_s)
         o = x_s.unsqueeze(1).repeat([1, n, 1]) + x_i
         return o
 
 
-class DDSLinearLayerVaringSizes(nn.Module):
+class DSSLinearLayerVaringSizes(nn.Module):
     def __init__(self, input_dim, output_dim, op=torch.sum):
-        super(DDSLinearLayerVaringSizes, self).__init__()
+        super(DSSLinearLayerVaringSizes, self).__init__()
         self.fc = nn.Linear(input_dim, output_dim)
+        self.bn = nn.BatchNorm1d(output_dim)
         self.shared_fc = nn.Linear(input_dim, output_dim)
+        self.shared_bn = nn.BatchNorm1d(output_dim)
+
         self.op = op
 
     def forward(self, x, l):
         x_i = self.fc(x)
+        if x.ndim == 3:
+            bs, n, d = x_i.shape
+            x_i = self.bn(x_i.view(bs * n, d)).view(bs, n, d)
+        else:
+            x_i = self.bn(x_i)
         splits = torch.split(x, split_size_or_sections=l, dim=0)
         x_m = torch.stack([self.op(i, 0) for i in splits])
         x_s = self.shared_fc(x_m)
+        x_s = self.shared_bn(x_s)
         o = x_s.unsqueeze(1).repeat_interleave(torch.tensor(list(l)).to(x.device), 0).squeeze(1) + x_i
         return o
 
 
-class DDSInvarianceModel(nn.Module):
+class DSSInvarianceModel(nn.Module):
     def __init__(self, hidden_states, rho, drop_rate=None, op=torch.sum):
-        super(DDSInvarianceModel, self).__init__()
+        super(DSSInvarianceModel, self).__init__()
 
         self.op = op
         layers = []
         for i in range(len(hidden_states) - 1):
-            layers.append(DDSLinearLayer(hidden_states[i], hidden_states[i + 1], op))
+            layers.append(DSSLinearLayer(hidden_states[i], hidden_states[i + 1], op))
             layers.append(nn.ReLU(inplace=True))
             if drop_rate != None:
                 layers.append(nn.Dropout(drop_rate))
@@ -71,22 +85,22 @@ class DDSInvarianceModel(nn.Module):
         self.layers = nn.Sequential(*layers[:-2 if drop_rate != None else -1])
         self.rho = rho
 
-    def forward(self, x, l):
-        x = self.layers(x, l)
-        xs = self.op(x, 1)
+    def forward(self, x):
+        x = self.layers(x)
+        xs = torch.sum(x, 1) # the authors claim to always use sum
         out = self.rho(xs)
         return out
 
 
-class DDSInvarianceModelVaryingSizes(nn.Module):
+class DSSInvarianceModelVaryingSizes(nn.Module):
     def __init__(self, hidden_states, rho, drop_rate=None, op=torch.sum):
-        super(DDSInvarianceModelVaryingSizes, self).__init__()
+        super(DSSInvarianceModelVaryingSizes, self).__init__()
 
         self.op = op
 
-        self.dds_1 = DDSLinearLayerVaringSizes(hidden_states[0], hidden_states[1], op)
-        self.dds_2 = DDSLinearLayerVaringSizes(hidden_states[1], hidden_states[2], op)
-        self.dds_3 = DDSLinearLayerVaringSizes(hidden_states[2], hidden_states[3], op)
+        self.dds_1 = DSSLinearLayerVaringSizes(hidden_states[0], hidden_states[1], op)
+        self.dds_2 = DSSLinearLayerVaringSizes(hidden_states[1], hidden_states[2], op)
+        self.dds_3 = DSSLinearLayerVaringSizes(hidden_states[2], hidden_states[3], op)
         self.rho = rho
 
     def forward(self, x, l):
@@ -95,7 +109,7 @@ class DDSInvarianceModelVaryingSizes(nn.Module):
         x = self.dds_3(x, l)
 
         splits = torch.split(x, split_size_or_sections=l, dim=0)
-        x_m = torch.stack([self.op(i, 0) for i in splits])
+        x_m = torch.stack([torch.sum(i, 0) for i in splits]) # the authors claim to always use sum
         out = self.rho(x_m)
         return out
 
