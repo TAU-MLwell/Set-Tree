@@ -1,6 +1,7 @@
 # Set-Tree
 ### Extending decision trees to process sets
 This is the official repository for the paper: "Trees with Attention for Set Prediction Tasks" (ICML21).
+[http://proceedings.mlr.press/v139/hirsch21a.html](http://proceedings.mlr.press/v139/hirsch21a.html)
 
 This repository contains a prototypical implementaion of Set-Tree and GBeST (Gradient Boosted Set-Tree) algorithms
 
@@ -17,8 +18,8 @@ In many machine learning applications, each record represents a set of items. A 
 
 ## The model
 Set-Tree model comprised from two components:
-1) **Set-compatible split creteria**: we specifically support the familly of split creteria defined by the following equation and parametrized by alpha and beta.
-2) **Attention-Sets**: a mechanism for allplying the split creteria to subsets of the input. The attention-sets are derived forn previous split-creteria and allows the model to learn more complex set-functions.
+1) **Set-compatible split criteria**: we specifically support the familly of split criteria defined by the following equation and parametrized by alpha and beta.
+2) **Attention-Sets**: a mechanism for allplying the split criteria to subsets of the input. The attention-sets are derived forn previous split-criteria and allows the model to learn more complex set-functions.
 
 
 <img src="https://github.com/TAU-MLwell/Set-Tree/blob/main/images/model.PNG" width="600" align="center">
