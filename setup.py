@@ -23,7 +23,7 @@ setup(
                      ' The attention-sets are derived forn previous split-creteria and allows the model to learn more complex set-functions.',
     author_email='royhirsch@mail.tau.ac.il',
     url='https://github.com/TAU-MLwell/Set-Tree',
-    download_url='https://github.com/TAU-MLwell/Set-Tree/archive/refs/tags/0.1.9.tar.gz',
+    download_url='https://github.com/TAU-MLwell/Set-Tree/archive/refs/tags/0.2.1.tar.gz',
 
     install_requires=['numpy>=1.19.2', 'scikit-learn>= 0.23.1', 'scipy>=pi1.5.2'],
     classifiers=["Programming Language :: Python :: 3",
