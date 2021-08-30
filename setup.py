@@ -1,12 +1,9 @@
 from distutils.core import setup
 
-with open("README.md", "r", encoding="utf-8") as fh:
-    long_description = fh.read()
-
 setup(
     name="settree",
     packages=['settree'],
-    version="0.2.0",
+    version="0.2.1",
     author="Roy Hirsch",
     license='MIT',
     description="A framework for learning tree-based models over sets",
