@@ -1,0 +1,10 @@
+LICENSE
+README.md
+pyproject.toml
+setup.cfg
+setup.py
+settree/settree.egg-info/PKG-INFO
+settree/settree.egg-info/SOURCES.txt
+settree/settree.egg-info/dependency_links.txt
+settree/settree.egg-info/requires.txt
+settree/settree.egg-info/top_level.txt

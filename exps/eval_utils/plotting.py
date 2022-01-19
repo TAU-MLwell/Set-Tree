@@ -39,7 +39,7 @@ def get_dot_graph(dt, features_list=None):
                                      parent,
                                      branch,
                                      0.0,
-                                     dt.n_samples])
+                                     dt.weighted_n_node_samples])
             return
 
         # if a SetNode - continue branch
@@ -63,7 +63,7 @@ def get_dot_graph(dt, features_list=None):
 
             document_node(split_num + 1, dt.left, True, decision, indent + '\t\t')
             document_node(split_num + 1, dt.right, False, decision, indent + '\t\t')
-            nodes[split_num].append([split_num + 1, decision, parent, branch, '{:.3f}'.format(dt.gain), dt.n_samples])
+            nodes[split_num].append([split_num + 1, decision, parent, branch, '{:.3f}'.format(dt.impurity), dt.weighted_n_node_samples])
             return
 
     document_node(0, dt, None)

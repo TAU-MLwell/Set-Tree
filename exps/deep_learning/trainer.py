@@ -310,7 +310,6 @@ class RegularTrainer(BaseTrainer):
         reverse_list = np.arange(inv_chunk_size, 2*inv_chunk_size).tolist() + np.arange(inv_chunk_size).tolist()
         suffix_b = suffix_a[:, reverse_list, :]
 
-
         seq_a = torch.cat((prefix, suffix_a), dim=1)
         seq_b = torch.cat((prefix, suffix_b), dim=1)
 

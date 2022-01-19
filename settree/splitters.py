@@ -365,7 +365,7 @@ class SklearnSetSplitter(ThirdPartySplitter):
 
         threshold = clf.tree_.threshold[0]
         feature_num = clf.tree_.feature[0]
-        gain = clf.tree_.impurity[0]
+        impurity = clf.tree_.impurity[0]
 
         if feature_num < 0:
             feature_num = 0
@@ -375,7 +375,7 @@ class SklearnSetSplitter(ThirdPartySplitter):
 
         best_split = ind2args[feature_num]
         best_split['threshold'] = threshold
-        best_split['gain'] = gain
+        best_split['impurity'] = impurity
         best_split['is_leaf'] = is_leaf
         return best_split
 
